@@ -11,6 +11,7 @@ import things._
 import dudes._
 
 // format: OFF
+
 trait ApiRoutes extends HttpService
                    with ThingsApiRoutes
                    with DudesApiRoutes {
@@ -25,7 +26,8 @@ trait ApiRoutes extends HttpService
   }
 
   val ApiRejectionHandler = RejectionHandler.Default
-  val noCachingAllowed = respondWithHeaders(List(`Cache-Control`(`no-store`),
-                                                  RawHeader("Pragma", "no-cache")))
+  val noCachingAllowed = respondWithHeaders(`Cache-Control`(`no-store`),
+                                            RawHeader("Pragma", "no-cache"))
 }
+
 // format: ON

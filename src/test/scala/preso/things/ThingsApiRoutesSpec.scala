@@ -9,7 +9,11 @@ import spray.routing._
 import org.scalatest._
 import spray.testkit._
 
-class ThingsApiRoutesSpec extends ThingsApiRoutes with WordSpecLike with Matchers with Inspectors with ScalatestRouteTest {
+class ThingsApiRoutesSpec extends WordSpecLike
+    with ScalatestRouteTest
+    with ThingsApiRoutes
+    with Matchers
+    with Inspectors {
   def actorRefFactory = system
 
   "The ThingsApiRoutes route handler" should {
@@ -20,12 +24,14 @@ class ThingsApiRoutesSpec extends ThingsApiRoutes with WordSpecLike with Matcher
         responseAs[List[Thing]] should have size (2)
       }
     }
+
     "handle a POST on /things by responding with Created in JSON format" in {
       Post("/things", Thing("thong")) ~> thingsApiRoutes ~> check {
         status shouldBe StatusCodes.Created
         contentType shouldBe ContentTypes.`text/plain(UTF-8)`
       }
     }
+
     "handle a GET on /things/12345 by returning one thing in JSON format" in {
       Get("/things/12345") ~> thingsApiRoutes ~> check {
         status shouldBe StatusCodes.OK

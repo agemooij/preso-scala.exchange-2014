@@ -2,13 +2,15 @@ package preso
 package things
 
 import spray.http.StatusCodes._
+
 import spray.httpx.SprayJsonSupport._
 import spray.json.DefaultJsonProtocol._
+
 import spray.routing._
 
 trait ThingsApiRoutes extends HttpService {
   // format: OFF
-  val thingsApiRoutes = {
+  val thingsApiRoutes: Route = {
     pathPrefix("things") {
       pathEnd {
         get {
@@ -27,5 +29,6 @@ trait ThingsApiRoutes extends HttpService {
       }
     }
   }
+
   // format: ON
 }

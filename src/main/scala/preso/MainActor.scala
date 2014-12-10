@@ -18,12 +18,16 @@ class MainActor extends HttpServiceActor
   def receive = runRoute(routes)
 }
 
-trait Routes extends ApiRoutes with AssetRoutes with HttpsDirectives with SettingsProvider {
+trait Routes extends ApiRoutes
+    with WebsiteRoutes
+    with HttpsDirectives
+    with SettingsProvider {
   val routes = {
     (decompressRequest() & compressResponseIfRequested(())) {
       enforceHttpsIf(settings.Http.EnforceHttps) {
-        apiRoutes ~ assetRoutes
+        apiRoutes ~ websiteRoutes
       }
     }
   }
 }
+

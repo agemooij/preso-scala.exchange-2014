@@ -30,9 +30,13 @@ trait HttpsDirectives {
 
 object HttpsDirectives {
   /** Hardcoded max-age of one year (31536000 seconds) for now. */
-  val StrictTransportSecurity = RawHeader("Strict-Transport-Security", "max-age=31536000")
+  val StrictTransportSecurity =
+    RawHeader("Strict-Transport-Security", "max-age=31536000")
 
   val isHttpsRequest: RequestContext ⇒ Boolean = { ctx ⇒
-    ctx.request.uri.scheme == "https" || ctx.request.headers.exists(h ⇒ h.is("x-forwarded-proto") && h.value == "https")
+    ctx.request.uri.scheme == "https" ||
+      ctx.request.headers.exists(
+        h ⇒ h.is("x-forwarded-proto") && h.value == "https")
   }
 }
+
